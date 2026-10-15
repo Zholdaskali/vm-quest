@@ -1,0 +1,3 @@
+[functions.vm-classroom]
+verify_jwt = false
+# The function validates its own opaque student tokens and a private teacher key.
