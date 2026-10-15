@@ -3,13 +3,18 @@
 const el=id=>document.getElementById(id);let invite='',svg='';
 window.updateJoinScreen=(url,code,count)=>{
  if(invite!==url){
-  invite=url;const qr=qrcode(0,'M');qr.addData(url);qr.make();
+  const qr=qrcode(0,'M');qr.addData(url);qr.make();
   svg=qr.createSvgTag({cellSize:8,margin:32,scalable:true});
-  el('joinQR').innerHTML=svg;el('joinCode').textContent=code;el('joinFeedback').textContent='';
+  invite=url;el('joinQR').innerHTML=svg;el('joinCode').textContent=code;el('joinFeedback').textContent='';
  }
  el('joinCount').textContent=count?'Подключились: '+count:'Ожидаем участников';el('showJoin').disabled=false;
 };
-el('showJoin').onclick=()=>{if(invite)el('joinDialog').showModal();};
+el('showJoin').onclick=()=>{
+ const link=el('invite').href,code=el('roomCode').textContent.trim();
+ if(!code||!new URL(link).searchParams.get('code')){el('connection').textContent='Сначала выбери или создай группу.';return;}
+ try{window.updateJoinScreen(link,code,Number((el('count').textContent.match(/\d+/)||['0'])[0]));el('joinDialog').showModal();}
+ catch(e){el('connection').textContent='Не удалось построить QR. Обнови страницу и попробуй ещё раз.';}
+};
 el('closeJoin').onclick=async()=>{if(document.fullscreenElement&&document.exitFullscreen)await document.exitFullscreen().catch(()=>{});el('joinDialog').close();};
 el('fullscreenJoin').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(el('joinDialog').requestFullscreen)await el('joinDialog').requestFullscreen();else el('joinFeedback').textContent='Используй полноэкранный режим браузера.';}catch(e){el('joinFeedback').textContent='Используй полноэкранный режим браузера.';}};
 el('copyJoin').onclick=async()=>{try{await navigator.clipboard.writeText(invite);el('joinFeedback').textContent='Ссылка скопирована';}catch(e){el('joinFeedback').textContent='Скопируй ссылку из пульта преподавателя.';}};
