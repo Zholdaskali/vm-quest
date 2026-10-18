@@ -1,8 +1,11 @@
-ОТКРЫТЫЙ УРОК — ПОДТВЕРЖДЁННАЯ ТЕМА
+ОТКРЫТОЕ ЛАБОРАТОРНОЕ ЗАНЯТИЕ — ПОДТВЕРЖДЁННАЯ ТЕМА
 
 Инструментальные среды разработки и сопровождения программных средств.
 Вопросы: бизнес-моделирование; модели бизнес-процесса и их типы;
 Flow Chart Diagram, Data Flow Diagram, Role Activity Diagram, IDEF и UML.
+
+ЗАДАНИЕ СТУДЕНТУ И ТРЕБОВАНИЯ К ОТЧЁТУ:
+https://zholdaskali.github.io/vm-quest/materials/lab-work.html
 
 1. Презентация — 6 слайдов, 5–7 минут:
 https://zholdaskali.github.io/vm-quest/materials/presentation.html
@@ -12,7 +15,7 @@ https://zholdaskali.github.io/vm-quest/materials/presentation.html
 https://zholdaskali.github.io/vm-quest/teacher.html
 Введи свой прежний секрет. Тип новой группы:
 «Бизнес-моделирование · инструментальные среды».
-Создай НОВУЮ группу для урока и покажи QR.
+Создай НОВУЮ группу для занятия и покажи QR.
 
 3. Практика:
 https://zholdaskali.github.io/vm-quest/business/
@@ -28,9 +31,9 @@ https://zholdaskali.github.io/vm-quest/materials/business-invitation.html
 PNG: https://zholdaskali.github.io/vm-quest/materials/business-invitation.png
 PDF: https://zholdaskali.github.io/vm-quest/materials/business-invitation.pdf
 
-ТЕСТОВАЯ ГРУППА НОВОГО УРОКА: W358J48E
+ТЕСТОВАЯ ГРУППА ЛАБОРАТОРНОГО ЗАНЯТИЯ: W358J48E
 https://zholdaskali.github.io/vm-quest/business/?code=W358J48E
-Для самого урока лучше создать свежую группу.
+Для самого занятия лучше создать свежую группу.
 
 Предыдущая тема снята с сайта. Старые коды к новой практике не подходят.
 Баллы вычисляет сервер; смысл свободного вывода проверяет преподаватель.
