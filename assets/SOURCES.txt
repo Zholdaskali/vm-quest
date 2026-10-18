@@ -1,0 +1,5 @@
+Manrope: https://fonts.google.com/specimen/Manrope
+License: assets/fonts/OFL.txt
+Font source: https://github.com/google/fonts/tree/main/ofl/manrope
+
+All process diagrams, SVG icons and the three instructional GIF sequences were created as code-native assets for this project. Demo diagrams are illustrative, not student results.

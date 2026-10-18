@@ -13,7 +13,7 @@ window.setJoinTopic=kind=>{
  const logic=kind==='business';
  document.querySelector('.join-bottom span').textContent=logic?'БИЗНЕС-МОДЕЛИРОВАНИЕ · ПРАКТИКА':'ВИРТУАЛИЗАЦИЯ · ИНТЕРАКТИВНАЯ ПРАКТИКА';
  document.querySelector('.join-steps li:last-child span').textContent=logic?'Создай первый артефакт проекта':'Начни первую миссию';
- el('joinTitle').innerHTML=logic?'Построй процесс.<br>Проверь улучшение.<br><span>Твой ход.</span>':'Один компьютер.<br>Две системы.<br><span>Твой ход.</span>';
+ el('joinTitle').innerHTML=logic?'Построй процесс.<br>Улучши систему.<br><span>Твой ход.</span>':'Один компьютер.<br>Две системы.<br><span>Твой ход.</span>';
  document.querySelector('.join-description').innerHTML=logic?'Смоделируй обслуживание заявки.<br>Маршрут, данные, роли и эксперимент.':'Собери виртуальную лабораторию.<br>Распредели ресурсы. Восстанови сервер.';
  document.querySelector('.ticket-address').textContent=logic?'zholdaskali.github.io/vm-quest/business/':'zholdaskali.github.io/vm-quest/vm.html';
 };
