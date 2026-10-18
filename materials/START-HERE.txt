@@ -1,38 +1,37 @@
-ЧТО ОТКРЫТЬ НА УРОКЕ
+ОТКРЫТЫЙ УРОК — ПОДТВЕРЖДЁННАЯ ТЕМА
 
-Основная тема: Этапы логического проектирования программы.
-Системный подход. Концептуальная модель. Предметная область.
+Инструментальные среды разработки и сопровождения программных средств.
+Вопросы: бизнес-моделирование; модели бизнес-процесса и их типы;
+Flow Chart Diagram, Data Flow Diagram, Role Activity Diagram, IDEF и UML.
 
-1. Презентация (6 слайдов, 5–7 минут):
+1. Презентация — 6 слайдов, 5–7 минут:
 https://zholdaskali.github.io/vm-quest/materials/presentation.html
-Стрелки переключают слайды. Кнопка «Заметки» — пояснения преподавателя.
+Стрелки — слайды; «Заметки» — пояснения преподавателя.
 
 2. Пульт:
 https://zholdaskali.github.io/vm-quest/teacher.html
-Введи свой прежний секрет. Выбери «Логическое проектирование программы»,
-создай НОВУЮ группу для урока, нажми «Показать QR для студентов».
-Результаты обновляются каждые 3 секунды.
+Введи свой прежний секрет. Тип новой группы:
+«Бизнес-моделирование · инструментальные среды».
+Создай НОВУЮ группу для урока и покажи QR.
 
-3. Задание:
-https://zholdaskali.github.io/vm-quest/logic/
-Сущности → границы → связи → алгоритм → правила → тесты.
-На выходе — проект и вывод. На компьютере и телефоне можно работать кнопками.
+3. Практика:
+https://zholdaskali.github.io/vm-quest/business/
+Паспорт и типы → Flow Chart → DFD → роли → IDEF0 → UML и эксперимент.
+Пример: обслуживание заявки о неисправном компьютере.
 
-4. План на 50 минут, ключи и методы:
+4. План на 50 минут, ключи и оценивание:
 https://zholdaskali.github.io/vm-quest/materials/practice-plan.html
+Шпаргалка: https://zholdaskali.github.io/vm-quest/materials/business-guide.html
 
-5. Приглашение с новой темой, QR и данными участников:
-https://zholdaskali.github.io/vm-quest/materials/invitation.html
-Картинка: https://zholdaskali.github.io/vm-quest/materials/invitation.png
+5. Приглашение для рассылки:
+https://zholdaskali.github.io/vm-quest/materials/business-invitation.html
+PNG: https://zholdaskali.github.io/vm-quest/materials/business-invitation.png
+PDF: https://zholdaskali.github.io/vm-quest/materials/business-invitation.pdf
 
-ТЕСТОВЫЕ ГРУППЫ НЕ ПЕРЕПУТАТЬ
-HBKHZQE3 — новый квест по логическому проектированию:
-https://zholdaskali.github.io/vm-quest/logic/?code=HBKHZQE3
-7VKYHLHW — прежняя практика виртуальных машин:
-https://zholdaskali.github.io/vm-quest/vm.html?code=7VKYHLHW
-Для проведения урока создай свежую группу; эти коды оставлены для подготовки.
+ТЕСТОВАЯ ГРУППА НОВОГО УРОКА: W358J48E
+https://zholdaskali.github.io/vm-quest/business/?code=W358J48E
+Для самого урока лучше создать свежую группу.
 
-Всё старое сохранено: VM-конструктор — /vm.html,
-прежние материалы — /materials/vm-presentation.html и /materials/vm-practice-plan.html.
-VM теперь служат примером лаборатории. Не трать основной урок на настройку ОС:
-основная цель — спроектировать программу до написания кода.
+Предыдущая тема снята с сайта. Старые коды к новой практике не подходят.
+Баллы вычисляет сервер; смысл свободного вывода проверяет преподаватель.
+Картинка не исполняет процесс: редактор, IDE, симуляция и среда исполнения различаются.
