@@ -31,7 +31,7 @@ window.VMOnline={
    if(payload){const next=VMEngine.reduce(profile.state,payload.action),actions=payload.action.type==='reset'?[]:[...(profile.actions||[]),payload.action];save({...profile,state:next,actions});}
    status('Самостоятельная работа · '+profile.name+' · результат сохраняется только в этом браузере.');
   }
-  return {name:profile.name,state:profile.state};
+  if(profile.mode==='solo'&&VMEngine.normalize)save({...profile,state:VMEngine.normalize(profile.state)});return {name:profile.name,state:profile.state};
  }
 };
 window.addEventListener('DOMContentLoaded',()=>{

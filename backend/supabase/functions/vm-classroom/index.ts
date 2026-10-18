@@ -37,7 +37,7 @@ export async function handle(req:Request){
    }
    if(!safeUUID(p.roomId))throw new HttpError(400,'Выбери группу.');
    const rooms=await db('vm_rooms','select=code,quest&id=eq.'+p.roomId);if(!rooms.length)throw new HttpError(404,'Группа не найдена.');
-   return reply(200,{code:rooms[0].code,quest:rooms[0].quest,students:await db('vm_students','select=id,nickname,state,revision,last_seen,created_at&room_id=eq.'+p.roomId+'&order=created_at.asc&limit=120')});
+   return reply(200,{code:rooms[0].code,quest:rooms[0].quest,students:(await db('vm_students','select=id,nickname,state,revision,last_seen,created_at&room_id=eq.'+p.roomId+'&order=created_at.asc&limit=120')).map((s:any)=>({...s,state:s.state.kind==='business'?businessEngine.normalize(s.state):s.state}))});
   }
   if(p.op==='join'){
    if(typeof p.code!=='string'||!/^[A-Z2-9]{8}$/.test(p.code))throw new HttpError(400,'Нужен восьмизначный код группы.');
@@ -51,10 +51,10 @@ export async function handle(req:Request){
   }
   const row=await student(req);
   if(row.state.kind==='logic')throw new HttpError(409,'Эта тема снята. Открой новое приглашение преподавателя.');
-  if(p.op==='state')return reply(200,{id:row.id,state:row.state,revision:row.revision});
+  if(p.op==='state')return reply(200,{id:row.id,state:row.state.kind==='business'?businessEngine.normalize(row.state):row.state,revision:row.revision});
   if(p.op==='heartbeat'){await db('vm_students','id=eq.'+row.id,'PATCH',{last_seen:new Date().toISOString()});return reply(200,{ok:true});}
   if(p.op==='action'){
-   if(!Number.isInteger(p.revision)||p.revision!==row.revision)throw new HttpError(409,'Сборка обновилась в другом окне. Повтори действие после синхронизации.',{state:row.state,revision:row.revision});
+   if(!Number.isInteger(p.revision)||p.revision!==row.revision)throw new HttpError(409,'Сборка обновилась в другом окне. Повтори действие после синхронизации.',{state:row.state.kind==='business'?businessEngine.normalize(row.state):row.state,revision:row.revision});
    let state;try{state=(row.state.kind==='business'?businessEngine:engine).reduce(row.state,p.action);}catch(e){throw new HttpError(409,(e as Error).message);}
    const updated=await db('vm_students','id=eq.'+row.id+'&revision=eq.'+row.revision+'&select=id,state,revision','PATCH',{state,revision:row.revision+1,last_seen:new Date().toISOString()});
    if(!updated.length){const current=await student(req);throw new HttpError(409,'Сборка изменилась, повтори действие.',{state:current.state,revision:current.revision});}
