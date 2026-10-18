@@ -9,6 +9,14 @@ window.updateJoinScreen=(url,code,count)=>{
  }
  el('joinCount').textContent=count?'Подключились: '+count:'Ожидаем участников';el('showJoin').disabled=false;
 };
+window.setJoinTopic=kind=>{
+ const logic=kind==='logic';
+ document.querySelector('.join-bottom span').textContent=logic?'ЛОГИЧЕСКОЕ ПРОЕКТИРОВАНИЕ · ПРАКТИКА':'ВИРТУАЛИЗАЦИЯ · ИНТЕРАКТИВНАЯ ПРАКТИКА';
+ document.querySelector('.join-steps li:last-child span').textContent=logic?'Создай первый артефакт проекта':'Начни первую миссию';
+ el('joinTitle').innerHTML=logic?'Сначала проект.<br>Потом код.<br><span>Твой ход.</span>':'Один компьютер.<br>Две системы.<br><span>Твой ход.</span>';
+ document.querySelector('.join-description').innerHTML=logic?'Спроектируй программу бронирования.<br>От предметной области до проверки правил.':'Собери виртуальную лабораторию.<br>Распредели ресурсы. Восстанови сервер.';
+ document.querySelector('.ticket-address').textContent=logic?'zholdaskali.github.io/vm-quest/logic/':'zholdaskali.github.io/vm-quest/vm.html';
+};
 el('showJoin').onclick=()=>{
  const link=el('invite').href,code=el('roomCode').textContent.trim();
  if(!code||!new URL(link).searchParams.get('code')){el('connection').textContent='Сначала выбери или создай группу.';return;}

@@ -1,0 +1,38 @@
+ЧТО ОТКРЫТЬ НА УРОКЕ
+
+Основная тема: Этапы логического проектирования программы.
+Системный подход. Концептуальная модель. Предметная область.
+
+1. Презентация (6 слайдов, 5–7 минут):
+https://zholdaskali.github.io/vm-quest/materials/presentation.html
+Стрелки переключают слайды. Кнопка «Заметки» — пояснения преподавателя.
+
+2. Пульт:
+https://zholdaskali.github.io/vm-quest/teacher.html
+Введи свой прежний секрет. Выбери «Логическое проектирование программы»,
+создай НОВУЮ группу для урока, нажми «Показать QR для студентов».
+Результаты обновляются каждые 3 секунды.
+
+3. Задание:
+https://zholdaskali.github.io/vm-quest/logic/
+Сущности → границы → связи → алгоритм → правила → тесты.
+На выходе — проект и вывод. На компьютере и телефоне можно работать кнопками.
+
+4. План на 50 минут, ключи и методы:
+https://zholdaskali.github.io/vm-quest/materials/practice-plan.html
+
+5. Приглашение с новой темой, QR и данными участников:
+https://zholdaskali.github.io/vm-quest/materials/invitation.html
+Картинка: https://zholdaskali.github.io/vm-quest/materials/invitation.png
+
+ТЕСТОВЫЕ ГРУППЫ НЕ ПЕРЕПУТАТЬ
+HBKHZQE3 — новый квест по логическому проектированию:
+https://zholdaskali.github.io/vm-quest/logic/?code=HBKHZQE3
+7VKYHLHW — прежняя практика виртуальных машин:
+https://zholdaskali.github.io/vm-quest/vm.html?code=7VKYHLHW
+Для проведения урока создай свежую группу; эти коды оставлены для подготовки.
+
+Всё старое сохранено: VM-конструктор — /vm.html,
+прежние материалы — /materials/vm-presentation.html и /materials/vm-practice-plan.html.
+VM теперь служат примером лаборатории. Не трать основной урок на настройку ОС:
+основная цель — спроектировать программу до написания кода.

@@ -1,4 +1,6 @@
 import './engine.js';
+import './logic-engine.js';
+const logicEngine=(globalThis as any).LogicEngine;
 const engine=(globalThis as any).VMEngine;
 class HttpError extends Error {constructor(public status:number,message:string,public extra:Record<string,unknown>={}){super(message);}}
 const originAllowed=(origin:string)=>origin==='https://zholdaskali.github.io'||/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin);
@@ -28,20 +30,21 @@ export async function handle(req:Request){
   const p=JSON.parse(text);if(!p||typeof p!=='object'||Array.isArray(p))throw new HttpError(400,'Ожидается JSON-объект.');
   if(['rooms','create-room','roster'].includes(p.op)){
    await teacher(req);
-   if(p.op==='rooms')return reply(200,{rooms:await db('vm_rooms','select=id,code,created_at,closed&order=created_at.desc&limit=100')});
+   if(p.op==='rooms')return reply(200,{rooms:await db('vm_rooms','select=id,code,created_at,closed,quest&order=created_at.desc&limit=100')});
    if(p.op==='create-room'){
-    const rows=await db('vm_rooms','select=id,code,created_at','POST',{code:roomCode()});return reply(200,{room:rows[0]});
+    const rows=await db('vm_rooms','select=id,code,created_at,quest','POST',{code:roomCode(),quest:p.quest==='logic'?'logic':'vm'});return reply(200,{room:rows[0]});
    }
    if(!safeUUID(p.roomId))throw new HttpError(400,'Выбери группу.');
-   const rooms=await db('vm_rooms','select=code&id=eq.'+p.roomId);if(!rooms.length)throw new HttpError(404,'Группа не найдена.');
-   return reply(200,{code:rooms[0].code,students:await db('vm_students','select=id,nickname,state,revision,last_seen,created_at&room_id=eq.'+p.roomId+'&order=created_at.asc&limit=120')});
+   const rooms=await db('vm_rooms','select=code,quest&id=eq.'+p.roomId);if(!rooms.length)throw new HttpError(404,'Группа не найдена.');
+   return reply(200,{code:rooms[0].code,quest:rooms[0].quest,students:await db('vm_students','select=id,nickname,state,revision,last_seen,created_at&room_id=eq.'+p.roomId+'&order=created_at.asc&limit=120')});
   }
   if(p.op==='join'){
    if(typeof p.code!=='string'||!/^[A-Z2-9]{8}$/.test(p.code))throw new HttpError(400,'Нужен восьмизначный код группы.');
    if(typeof p.name!=='string'||!/^[-\p{L}\p{N} _]{2,32}$/u.test(p.name.trim()))throw new HttpError(400,'Ник: 2–32 буквы или цифры.');
-   const rooms=await db('vm_rooms','select=id&closed=eq.false&code=eq.'+p.code);if(!rooms.length)throw new HttpError(404,'Проверь код группы.');
+   const rooms=await db('vm_rooms','select=id,quest&closed=eq.false&code=eq.'+p.code);if(!rooms.length)throw new HttpError(404,'Проверь код группы.');
+   if((p.quest||'vm')!==rooms[0].quest)throw new HttpError(409,'Группа относится к другому заданию. Открой ссылку-приглашение преподавателя.');
    const existing=await db('vm_students','select=id&room_id=eq.'+rooms[0].id+'&limit=120');if(existing.length>=120)throw new HttpError(409,'Группа заполнена.');
-   const token=randomHex(),state=engine.initial();const rows=await db('vm_students','select=id,state,revision','POST',{room_id:rooms[0].id,nickname:p.name.trim(),token_hash:await hash(token),state});
+   const token=randomHex(),state=rooms[0].quest==='logic'?logicEngine.initial():engine.initial();const rows=await db('vm_students','select=id,state,revision','POST',{room_id:rooms[0].id,nickname:p.name.trim(),token_hash:await hash(token),state});
    return reply(200,{token,...rows[0]});
   }
   const row=await student(req);
@@ -49,7 +52,7 @@ export async function handle(req:Request){
   if(p.op==='heartbeat'){await db('vm_students','id=eq.'+row.id,'PATCH',{last_seen:new Date().toISOString()});return reply(200,{ok:true});}
   if(p.op==='action'){
    if(!Number.isInteger(p.revision)||p.revision!==row.revision)throw new HttpError(409,'Сборка обновилась в другом окне. Повтори действие после синхронизации.',{state:row.state,revision:row.revision});
-   let state;try{state=engine.reduce(row.state,p.action);}catch(e){throw new HttpError(409,(e as Error).message);}
+   let state;try{state=(row.state.kind==='logic'?logicEngine:engine).reduce(row.state,p.action);}catch(e){throw new HttpError(409,(e as Error).message);}
    const updated=await db('vm_students','id=eq.'+row.id+'&revision=eq.'+row.revision+'&select=id,state,revision','PATCH',{state,revision:row.revision+1,last_seen:new Date().toISOString()});
    if(!updated.length){const current=await student(req);throw new HttpError(409,'Сборка изменилась, повтори действие.',{state:current.state,revision:current.revision});}
    return reply(200,updated[0]);
